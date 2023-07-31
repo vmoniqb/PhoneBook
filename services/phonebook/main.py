@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_, func
-
 import config
 
 # Initialize the DB and app
@@ -10,13 +9,6 @@ db = SQLAlchemy()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_URL
 db.init_app(app)
-
-# Initialize test DB and test app
-test_db = SQLAlchemy()
-test_app = Flask(__name__)
-test_app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_URL_TEST
-test_db.init_app(test_app)
-
 
 # Define the Contact model
 @dataclass
@@ -29,18 +21,6 @@ class Contact(db.Model):
 
 with app.app_context():
     db.create_all()
-
-@dataclass
-class ContactTest(test_db.Model):
-    id: test_db.Mapped[int] = test_db.mapped_column(test_db.Integer, primary_key=True, autoincrement=True)
-    first_name: test_db.Mapped[str] = test_db.mapped_column(test_db.String(120), nullable=False)
-    last_name: test_db.Mapped[str] = test_db.mapped_column(test_db.String(120))
-    phone_number: test_db.Mapped[str] = test_db.mapped_column(test_db.String(120))
-    address: test_db.Mapped[str] = test_db.mapped_column(test_db.String(250))
-
-
-with test_app.app_context():
-    test_db.create_all()
 
 
 # Return a list of all contacts

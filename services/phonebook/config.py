@@ -1,8 +1,5 @@
 import os
 
-# Define app environment
-APP_ENV = os.getenv('APP_ENV', 'development')
-
 # Define contact DB variables
 DATABASE_NAME = os.getenv('DATABASE_NAME', 'contacts')
 DATABASE_HOST = os.getenv('DATABASE_HOST', 'localhost')

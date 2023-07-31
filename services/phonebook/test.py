@@ -1,5 +1,5 @@
 import unittest
-from main import app
+from services.webapp.main import app
 
 
 class PhoneBookTest(unittest.TestCase):
