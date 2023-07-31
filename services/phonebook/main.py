@@ -44,6 +44,11 @@ def create_contact():
         request_body = request.get_json()
 
         try:
+            first_name = request_body['first_name']
+        except KeyError:
+            return jsonify('Contact must be identified with a first name')
+
+        try:
             last_name = request_body['last_name']
         except KeyError:
             last_name = None
